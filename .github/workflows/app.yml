@@ -1,0 +1,79 @@
+# Fixed delivery gate for the AH-042 acceptance fixture. Agents may only
+# write under app/; this workflow, acceptance/ and reference/ are outside
+# their scope. No secrets: tests run with a read-only token, and only the
+# deploy job (fixed steps, no agent code executed) may publish Pages.
+name: app
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  app-test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Agent-authored unit tests (Node built-in runner)
+        shell: bash
+        run: |
+          shopt -s globstar nullglob
+          tests=(app/**/*.test.mjs app/**/*.test.js)
+          if [ ${#tests[@]} -eq 0 ]; then echo "no unit tests yet"; exit 0; fi
+          node --test "${tests[@]}"
+      - name: Self-contained static app
+        run: python3 acceptance/smoke.py
+
+  acceptance:
+    if: github.event_name == 'push'
+    needs: app-test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install headless Chromium
+        run: |
+          python -m pip install playwright==1.49.1
+          python -m playwright install --with-deps chromium
+      - name: Reference X acceptance suite
+        run: python acceptance/test_calculator.py
+      - name: Keep the screenshot as evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: acceptance-screenshot
+          path: acceptance-screenshot.png
+          if-no-files-found: ignore
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: acceptance
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: app
+      - id: deployment
+        uses: actions/deploy-pages@v4
