@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="560" viewBox="0 0 360 560" font-family="system-ui, sans-serif">
+  <title>Reference X: Slate calculator</title>
+  <rect width="360" height="560" fill="#0a0d12"/>
+  <rect x="16" y="16" width="328" height="528" rx="24" fill="#10151c"/>
+  <text x="320" y="118" text-anchor="end" font-size="56" fill="#ffffff">0</text>
+  <g font-size="26" fill="#ffffff" text-anchor="middle">
+    <!-- row 1 -->
+    <rect x="32" y="152" width="64" height="64" rx="32" fill="#4a5a6e"/><text x="64" y="193">AC</text>
+    <rect x="108" y="152" width="64" height="64" rx="32" fill="#4a5a6e"/><text x="140" y="193">±</text>
+    <rect x="184" y="152" width="64" height="64" rx="32" fill="#4a5a6e"/><text x="216" y="193">%</text>
+    <rect x="260" y="152" width="64" height="64" rx="32" fill="#e07a2e"/><text x="292" y="193">÷</text>
+    <!-- row 2 -->
+    <rect x="32" y="228" width="64" height="64" rx="32" fill="#263241"/><text x="64" y="269">7</text>
+    <rect x="108" y="228" width="64" height="64" rx="32" fill="#263241"/><text x="140" y="269">8</text>
+    <rect x="184" y="228" width="64" height="64" rx="32" fill="#263241"/><text x="216" y="269">9</text>
+    <rect x="260" y="228" width="64" height="64" rx="32" fill="#e07a2e"/><text x="292" y="269">×</text>
+    <!-- row 3 -->
+    <rect x="32" y="304" width="64" height="64" rx="32" fill="#263241"/><text x="64" y="345">4</text>
+    <rect x="108" y="304" width="64" height="64" rx="32" fill="#263241"/><text x="140" y="345">5</text>
+    <rect x="184" y="304" width="64" height="64" rx="32" fill="#263241"/><text x="216" y="345">6</text>
+    <rect x="260" y="304" width="64" height="64" rx="32" fill="#e07a2e"/><text x="292" y="345">−</text>
+    <!-- row 4 -->
+    <rect x="32" y="380" width="64" height="64" rx="32" fill="#263241"/><text x="64" y="421">1</text>
+    <rect x="108" y="380" width="64" height="64" rx="32" fill="#263241"/><text x="140" y="421">2</text>
+    <rect x="184" y="380" width="64" height="64" rx="32" fill="#263241"/><text x="216" y="421">3</text>
+    <rect x="260" y="380" width="64" height="64" rx="32" fill="#e07a2e"/><text x="292" y="421">+</text>
+    <!-- row 5 -->
+    <rect x="32" y="456" width="140" height="64" rx="32" fill="#263241"/><text x="64" y="497">0</text>
+    <rect x="184" y="456" width="64" height="64" rx="32" fill="#263241"/><text x="216" y="497">.</text>
+    <rect x="260" y="456" width="64" height="64" rx="32" fill="#e07a2e"/><text x="292" y="497">=</text>
+  </g>
+</svg>
